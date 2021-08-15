@@ -3,11 +3,42 @@ onload = function () {
 };
 
 const fireworks_num=document.getElementById('num');
-const color_num=document.getElementById('color');
-// const color_num=document.getElementById('G');
-// const color_num=document.getElementById('B');
+const R=document.getElementById('R');
+const G=document.getElementById('G');
+const B=document.getElementById('B');
 console.log(fireworks_num.value);
-console.log(color_num.value);
+console.log(R);
+console.log(G);
+console.log(B);
+
+//  埋め込む先の要素
+const RcurrentValueElem = document.getElementById('R-value');
+const GcurrentValueElem = document.getElementById('G-value');
+const BcurrentValueElem = document.getElementById('B-value');
+const NumcurrentValueElem= document.getElementById('num-value');
+
+// 現在の値を埋め込む関数
+const setCurrentValue = (val,elem) => {
+  elem.innerText = val;
+}
+
+// inputイベント時に値をセットする関数
+const rangeOnChange = (e) =>{
+  setCurrentValue(e.target.value);
+}
+
+window.onload = () => {
+	// 変更に合わせてイベントを発火する
+	R.addEventListener('input', rangeOnChange);
+	G.addEventListener('input', rangeOnChange);
+	B.addEventListener('input', rangeOnChange);
+	fireworks_num.addEventListener('input', rangeOnChange);
+	// ページ読み込み時の値をセット
+	setCurrentValue(R.value,RcurrentValueElem);
+	setCurrentValue(G.value,GcurrentValueElem);
+	setCurrentValue(B.value,BcurrentValueElem);
+	setCurrentValue(fireworks_num.value,NumcurrentValueElem);
+  }
 
 function draw() {
 	setInterval(function () {
