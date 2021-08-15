@@ -4,8 +4,10 @@ onload = function () {
 
 const fireworks_num=document.getElementById('num');
 const color_num=document.getElementById('color');
-console.log(fireworks_num);
-console.log(color);
+// const color_num=document.getElementById('G');
+// const color_num=document.getElementById('B');
+console.log(fireworks_num.value);
+console.log(color_num.value);
 
 function draw() {
 	setInterval(function () {
