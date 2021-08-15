@@ -6,10 +6,10 @@ const fireworks_num=document.getElementById('num');
 const R=document.getElementById('R');
 const G=document.getElementById('G');
 const B=document.getElementById('B');
-console.log(fireworks_num.value);
-console.log(R);
-console.log(G);
-console.log(B);
+
+console.log(R.value);
+console.log(G.value);
+console.log(B.value);
 
 //  埋め込む先の要素
 const RcurrentValueElem = document.getElementById('R-value');
@@ -33,6 +33,9 @@ window.onload = () => {
 	G.addEventListener('input', rangeOnChange);
 	B.addEventListener('input', rangeOnChange);
 	fireworks_num.addEventListener('input', rangeOnChange);
+	console.log(fireworks_num.value);
+
+
 	// ページ読み込み時の値をセット
 	setCurrentValue(R.value,RcurrentValueElem);
 	setCurrentValue(G.value,GcurrentValueElem);
@@ -45,6 +48,8 @@ function draw() {
 		if ((Math.random() * 100) > 50) {
 			return;
 		}
+		var color_mozi="rgb("+R.value+","+G.value+","+ B.value+")";
+		var color = new RGBColor("rgb(255, 0, 255)");
 		var hanabi = {
 			// 火花の数
 			'quantity': 150,
@@ -60,7 +65,7 @@ function draw() {
 			'top': (Math.random()),
 			'left': (Math.random()),
 			// 色
-			'color': color_num
+			'color': 'random'
 		};
 		Math.Radian = Math.PI * 2;
 		var hibana = [];
