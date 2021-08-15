@@ -1,62 +1,65 @@
-onload = function () {
-	draw();
-};
+const inputNum = document.getElementById('num');
+const inputR = document.getElementById('R');
+const inputG = document.getElementById('G');
+const inputB = document.getElementById('B');
+const currentValueNum = document.getElementById('num-value');
+const currentValueR = document.getElementById('R-value');
+const currentValueG = document.getElementById('G-value');
+const currentValueB = document.getElementById('B-value');
 
-const fireworks_num=document.getElementById('num');
-const R=document.getElementById('R');
-const G=document.getElementById('G');
-const B=document.getElementById('B');
+let hanabiNum = 20;
 
-console.log(R.value);
-console.log(G.value);
-console.log(B.value);
-
-//  埋め込む先の要素
-const RcurrentValueElem = document.getElementById('R-value');
-const GcurrentValueElem = document.getElementById('G-value');
-const BcurrentValueElem = document.getElementById('B-value');
-const NumcurrentValueElem= document.getElementById('num-value');
-
-// 現在の値を埋め込む関数
-const setCurrentValue = (val,elem) => {
-  elem.innerText = val;
+const rangeOnChangeNum = (e) => {
+	currentValueNum.innerText = e.target.value;
 }
-
-// inputイベント時に値をセットする関数
-const rangeOnChange = (e) =>{
-  setCurrentValue(e.target.value);
+const rangeOnChangeR = (e) => {
+	currentValueR.innerText = e.target.value;
+}
+const rangeOnChangeG = (e) => {
+	currentValueG.innerText = e.target.value;
+}
+const rangeOnChangeB = (e) => {
+	currentValueB.innerText = e.target.value;
 }
 
 window.onload = () => {
 	// 変更に合わせてイベントを発火する
-	R.addEventListener('input', rangeOnChange);
-	G.addEventListener('input', rangeOnChange);
-	B.addEventListener('input', rangeOnChange);
-	fireworks_num.addEventListener('input', rangeOnChange);
-	console.log(fireworks_num.value);
+	inputNum.addEventListener('input', rangeOnChangeNum);
+	inputR.addEventListener('input', rangeOnChangeR);
+	inputG.addEventListener('input', rangeOnChangeG);
+	inputB.addEventListener('input', rangeOnChangeB);
+	// ページ読み込み 時の値をセット
+}
 
 
-	// ページ読み込み時の値をセット
-	setCurrentValue(R.value,RcurrentValueElem);
-	setCurrentValue(G.value,GcurrentValueElem);
-	setCurrentValue(B.value,BcurrentValueElem);
-	setCurrentValue(fireworks_num.value,NumcurrentValueElem);
-  }
+
+onload = function () {
+	draw();
+};
+
+function rgb2hex(rgb) {
+	return "#" + rgb.map(function (value) {
+		return ("0" + value.toString(16)).slice(-2);
+	}).join("");
+}
+
 
 function draw() {
+
+
 	setInterval(function () {
 		if ((Math.random() * 100) > 50) {
 			return;
 		}
-		var color_mozi="rgb("+R.value+","+G.value+","+ B.value+")";
-		var color = new RGBColor("rgb(255, 0, 255)");
+		
+		var color = rgb2hex([ parseInt(inputR.value), parseInt(inputG.value), parseInt(inputB.value)]);	
 		var hanabi = {
 			// 火花の数
-			'quantity': 150,
+			'quantity': parseInt(inputNum.value),
 			// 火花の大きさ
-			'size': 3,
+			'size': 2,
 			// 減衰率
-			'circle': 0.97,
+			'circle': 1.0,
 			// 重力
 			'gravity': 1.1,
 			// 火花の速度
@@ -65,7 +68,7 @@ function draw() {
 			'top': (Math.random()),
 			'left': (Math.random()),
 			// 色
-			'color': 'random'
+			'color': color
 		};
 		Math.Radian = Math.PI * 2;
 		var hibana = [];
@@ -89,10 +92,6 @@ function draw() {
 			'pos_y': 0
 		};
 		var frame = 0;
-		if (hanabi.color === 'random') {
-			var newcolor = (Math.random() * 0xFFFFFF | 0).toString(16);
-			hanabi.color = "#" + ("000000" + newcolor).slice(-6);
-		};
 
 
 
@@ -129,7 +128,7 @@ function draw() {
 
 		// 花火の描画
 		function render() {
-			if (!hibana.length) {
+			if (!hibana.length || hanabiNum<0) {
 				return;
 			};
 			frame++;
@@ -159,4 +158,3 @@ function draw() {
 	}, 400);
 
 }
-	
